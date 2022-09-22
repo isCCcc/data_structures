@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>封装队列</title>
+</head>
+<body>
+<script>
+    function Queue() {
+        // 队列的属性
+        this.item = [];
+        // 队列的基本操作：
+        // 向队列尾部添加一个属性
+        Queue.prototype.enqueue = function (element) {
+            this.item.push(element);
+        }
+        // 移除队列头部的一个属性，并返回被移除的元素
+        Queue.prototype.dequeue = function () {
+            return this.item.shift();
+        }
+        // 返回队列头部的一个元素，只读不改
+        Queue.prototype.front = function () {
+            return this.item[0];
+        }
+        // 判空
+        Queue.prototype.isEmpty = function () {
+            return this.item.length === 0;
+        }
+        // 查看队列的大小
+        Queue.prototype.size = function () {
+            return this.item.length;
+        }
+        // 将队列的内容转成字符串形式
+        Queue.prototype.toString = function () {
+            let res = '';
+            for (let i = 0; i < this.item.length; i++) {
+                res += this.item[i] + '';
+            }
+            return res;
+        }
+    }
+
+    // 测试
+    // let queue = new Queue();
+    // queue.enqueue('a')
+    // queue.enqueue('b')
+    // queue.enqueue('v')
+    // queue.enqueue('d')
+    // queue.enqueue('e')
+    // queue.enqueue('se')
+    // queue.enqueue('fre')
+    // queue.enqueue('qq')
+
+    // 面试题：击鼓传花
+    function passGame(nameList, num) {
+        let q = new Queue();
+
+        // 1、将游戏参与者添加到队列当中
+        for (let i = 0; i < nameList.length; i++) {
+            q.enqueue(nameList[i]);
+        }
+        // 2、循环队列，将普通参与者从队列头部删除，再添加到队列尾部
+        while (q.size() > 1) {
+            for (let i = 0; i < num - 1; i++) {
+                q.enqueue(q.dequeue());
+            }
+            // 将排名第num的参与则从队列中删除
+            q.dequeue();
+        }
+        console.log('获胜者是：'+q.front());
+        console.log('在原数组的下标为：'+nameList.indexOf(q.front()))
+        return nameList.indexOf(q.front())
+    }
+
+    let name=['lili','张三','李四','王五'];
+    passGame(name,3)
+
+</script>
+</body>
+</html>

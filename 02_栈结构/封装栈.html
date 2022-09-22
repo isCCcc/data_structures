@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>封装栈</title>
+</head>
+<body>
+<script>
+    // 封装一个 Stack 类
+    function Stack() {
+        // 栈中的属性(往Stack的示例对象身上添加了一个items属性)
+        this.items = [];
+
+        // 栈的基本操作
+        // 1.入栈：添加一个新元素到栈顶位置
+        Stack.prototype.push = function (element) {
+            return this.items.push(element);
+        }
+        // 2.出栈：从栈顶位置删除一个元素
+        Stack.prototype.pop = function () {
+            return this.items.pop();
+        }
+        // 3.查看栈顶元素
+        Stack.prototype.peek = function () {
+            return this.items[this.items.length - 1];
+        }
+        // 4.判断栈是否为空
+        Stack.prototype.isEmpty = function () {
+            return this.items.length == 0;
+        }
+        // 5.查看栈的大小
+        Stack.prototype.size = function () {
+            return this.items.length;
+        }
+        // 6.将栈结构的内容以字符串形式返回
+        Stack.prototype.toString = function () {
+            let str = '';
+            for (let i = 0; i < this.items.length; i++) {
+                str += this.items[i] + ' ';
+            }
+            return str;
+        }
+    }
+
+    let s = new Stack();
+    s.push(100);
+    s.push(88);
+    s.push(28);
+    s.push(67);
+
+
+</script>
+</body>
+</html>

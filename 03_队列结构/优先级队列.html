@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>封装优先级队列</title>
+</head>
+<body>
+<script>
+    function PriorityQueue() {
+        this.items = [];
+
+        // 封装一个新的构造函数，用于保存元素和元素的优先级
+        function QueueElement(element, priority) {
+            this.element = element;
+            this.priority = priority;
+        }
+
+        // 实现插入方法
+        PriorityQueue.prototype.enqueue = function (element, priority) {
+            let queueElement = new QueueElement(element, priority);
+            // 队列为空，直接进入队列
+            if (this.items.length === 0) {
+                this.items.push(queueElement);
+            } else {
+                let flag = false;
+                // 比较优先级
+                for (let i = 0; i < this.items.length; i++) {
+                    if (queueElement.priority < this.items[i].priority) {
+                        this.items.splice(i, 0, queueElement);
+                        flag = true;
+                        break;
+                    }
+                }
+                if(!flag){
+                    this.items.push(queueElement);
+                }
+            }
+            return this.items;
+        }
+        // 移除队列头部的一个属性，并返回被移除的元素
+        PriorityQueue.prototype.dequeue = function () {
+            return this.items.shift();
+        }
+        // 返回队列头部的一个元素，只读不改
+        PriorityQueue.prototype.front = function () {
+            return this.items[0];
+        }
+        // 判空
+        PriorityQueue.prototype.isEmpty = function () {
+            return this.items.length === 0;
+        }
+        // 查看队列的大小
+        PriorityQueue.prototype.size = function () {
+            return this.items.length;
+        }
+        // 将队列的内容转成字符串形式
+        PriorityQueue.prototype.toString = function () {
+            let res = '';
+            for (let i = 0; i < this.items.length; i++) {
+                res += this.items[i].element + '-'+this.items[i].priority+' ';
+            }
+            return res;
+        }
+    }
+
+    let q =new PriorityQueue();
+    q.enqueue('lili',100);
+    q.enqueue('小王',2);
+    q.enqueue('小明',29);
+    q.enqueue('小红',290);
+    console.log(q.items)
+</script>
+</body>
+</html>
