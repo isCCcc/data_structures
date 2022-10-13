@@ -193,7 +193,7 @@ export class BinarySearchTree {
 
 
             // 2、删除的是只有一个子节点的节点
-        } else if (currentNode.right === null) { // currentNode 只存在左节点
+        } else if (currentNode.right === null) { // 2、currentNode 只存在左节点
             //-- 2.1、currentNode 只存在<左节点>的情况
             //---- 2.1.1、currentNode 等于 root
             //---- 2.1.2、parentNode.left 等于 currentNode
@@ -207,7 +207,7 @@ export class BinarySearchTree {
                 parentNode.right = currentNode.left;
             }
 
-        } else if (currentNode.left === null) { // currentNode 只存在右节点
+        } else if (currentNode.left === null) { // 3、currentNode 只存在右节点
             //-- 2.2、currentNode 只存在<右节点>的情况
             //---- 2.1.1 currentNode 等于 root
             //---- 2.1.1 parentNode.left 等于 currentNode
@@ -220,11 +220,13 @@ export class BinarySearchTree {
             } else {
                 parentNode.right = currentNode.right;
             }
-
-
-            // 3、删除的是有两个子节点的节点
-        } else {
-
+        }
+        // 3、删除的是有两个子节点的节点
+        // 两种解决办法：
+        // 一、找左子树的最大节点值
+        // 二、找右子树的最小节点值
+        // 递归上述过程
+        else {
             // 1、找到后续节点
             let successor = this.getSuccessor(currentNode);
 
@@ -242,7 +244,7 @@ export class BinarySearchTree {
         }
     }
 
-    // 获取后续节点，即从要删除的节点的右边开始查找最小的值
+    // 获取后续节点，即从要删除的节点的右边开始查找最小的值（右子树的最小节点值）
     getSuccessor(delNode) {
 
         // 定义变量，保存要找到的后续
